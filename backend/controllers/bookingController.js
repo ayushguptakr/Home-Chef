@@ -5,18 +5,30 @@ const User = require('../models/User');
 const Chef = require('../models/Chef');
 
 // Toggle between in-memory and MongoDB
-const USE_MONGODB = false;
+const USE_MONGODB = true;
 
 // ===========================================
 // CREATE BOOKING
 // ===========================================
 const createBooking = async (req, res) => {
   try {
-    const { userId, chefId, date, time } = req.body;
+    const { userId, chefId, date, time, cuisine, address, specialRequests } = req.body;
+
+    if (!userId || !chefId || !date || !time || !address) {
+      return res.status(400).json({ message: 'Required fields missing' });
+    }
 
     if (USE_MONGODB) {
       // MongoDB version
-      const newBooking = new Booking({ userId, chefId, date, time });
+      const newBooking = new Booking({ 
+        userId, 
+        chefId, 
+        date, 
+        time, 
+        cuisine, 
+        address, 
+        specialRequests 
+      });
       await newBooking.save();
       
       // Populate user and chef details
@@ -31,11 +43,14 @@ const createBooking = async (req, res) => {
     } else {
       // In-memory version
       const newBooking = {
-        id: bookingIdCounter++,
+        id: bookingIdCounter,
         userId,
         chefId,
         date,
         time,
+        cuisine,
+        address,
+        specialRequests,
         createdAt: new Date().toISOString()
       };
       bookings.push(newBooking);
@@ -46,7 +61,8 @@ const createBooking = async (req, res) => {
       });
     }
   } catch (error) {
-    res.status(500).json({ message: 'Server error' });
+    console.error('Booking creation error:', error);
+    res.status(500).json({ message: 'Server error: ' + error.message });
   }
 };
 

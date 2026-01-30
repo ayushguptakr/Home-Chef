@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+require('dotenv').config();
 const connectDB = require('./config/db');
 
 // Import routes
@@ -7,14 +8,21 @@ const authRoutes = require('./routes/auth');
 const chefRoutes = require('./routes/chefs');
 const bookingRoutes = require('./routes/bookings');
 
-const app = express();
-const PORT = 5000;
+console.log('Routes imported successfully');
 
-// ===========================================
-// DATABASE CONNECTION (MongoDB)
-// ===========================================
-// Uncomment the line below to connect to MongoDB
-// connectDB();
+// Global error handlers
+process.on('uncaughtException', (error) => {
+  console.error('Uncaught Exception:', error);
+  process.exit(1);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+  process.exit(1);
+});
+
+const app = express();
+const PORT = process.env.PORT || 5000;
 
 // ===========================================
 // MIDDLEWARE
@@ -28,6 +36,8 @@ app.use(express.json()); // Parse JSON requests
 app.use('/api/users', authRoutes);     // User authentication
 app.use('/api/chefs', chefRoutes);     // Chef management
 app.use('/api/bookings', bookingRoutes); // Booking system
+
+console.log('Routes mounted successfully');
 
 // ===========================================
 // BASIC ROUTE
@@ -45,10 +55,36 @@ app.get('/', (req, res) => {
   });
 });
 
+app.get('/test', (req, res) => {
+  res.json({ message: 'Test route working!' });
+});
+
 // ===========================================
 // START SERVER
 // ===========================================
-app.listen(PORT, () => {
-  console.log(`🚀 HomeChef Backend Server running on port ${PORT}`);
-  console.log(`📍 API Base URL: http://localhost:${PORT}`);
-});
+console.log('Starting server...');
+try {
+  const server = app.listen(PORT, () => {
+    console.log(`🚀 HomeChef Backend Server running on port ${PORT}`);
+    console.log(`📍 API Base URL: http://localhost:${PORT}`);
+    console.log(`📍 Also accessible at: http://127.0.0.1:${PORT}`);
+    console.log('Server started successfully!');
+    
+    // Connect to database after server starts
+    connectDB();
+  });
+  
+  server.on('error', (error) => {
+    console.error('Server error:', error);
+  });
+  
+  server.on('listening', () => {
+    console.log('Server is now listening on port', PORT);
+    // Keep the server running
+    setInterval(() => {
+      console.log('Server is still running...');
+    }, 30000); // Log every 30 seconds
+  });
+} catch (error) {
+  console.error('Failed to start server:', error);
+}

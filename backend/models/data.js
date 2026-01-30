@@ -39,7 +39,7 @@ module.exports = {
   users,
   chefs,
   bookings,
-  userIdCounter,
-  chefIdCounter,
-  bookingIdCounter
+  get userIdCounter() { return userIdCounter++; },
+  get chefIdCounter() { return chefIdCounter++; },
+  get bookingIdCounter() { return bookingIdCounter++; }
 };

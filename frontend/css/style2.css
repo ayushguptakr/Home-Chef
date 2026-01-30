@@ -1,43 +1,382 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
+  font-family: 'Poppins', Arial, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+h1 {
+  text-align: center;
+  background: linear-gradient(45deg, #ff9f0d, #ff6b35);
+  color: white;
+  padding: 30px;
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+/* Authentication Section */
+.auth-section {
+  padding: 40px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.auth-tabs {
+  display: flex;
+  margin-bottom: 30px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 15px;
+  border: none;
+  background: #f8f9fa;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+  background: #ff9f0d;
+  color: white;
+}
+
+.auth-form {
+  background: #f8f9fa;
+  padding: 30px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.auth-form h3 {
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+.auth-form input {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 15px;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+.auth-form input:focus {
+  outline: none;
+  border-color: #ff9f0d;
+}
+
+.auth-form button {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(45deg, #ff9f0d, #ff6b35);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.auth-form button:hover {
+  transform: translateY(-2px);
+}
+
+/* Chef Selection Section */
+.chef-section {
+  padding: 40px;
+}
+
+.chef-section h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+  font-size: 2rem;
+}
+
+.chefs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  margin-bottom: 30px;
+}
+
+.chef-card {
+  background: white;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 3px solid transparent;
+}
+
+.chef-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+.chef-card.selected {
+  border-color: #ff9f0d;
+  background: linear-gradient(135deg, #fff5e6, #ffffff);
+}
+
+.chef-info h3 {
+  color: #333;
+  margin-bottom: 10px;
+  font-size: 1.4rem;
+}
+
+.chef-info p {
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.chef-rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 15px 0;
+}
+
+.chef-rating i {
+  color: #ffd700;
+  font-size: 18px;
+}
+
+.select-chef-btn {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(45deg, #ff9f0d, #ff6b35);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.select-chef-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* Booking Section */
+.booking-section {
+  padding: 40px;
+  background: #f8f9fa;
+}
+
+.booking-section h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+  font-size: 2rem;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #333;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 15px;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #ff9f0d;
+}
+
+.book-btn {
+  width: 100%;
+  padding: 18px;
+  background: linear-gradient(45deg, #28a745, #20c997);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 20px;
+}
+
+.book-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(40, 167, 69, 0.3);
+}
+
+/* User Dashboard */
+.dashboard {
+  padding: 20px 40px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+}
+
+.user-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-info h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.logout-btn {
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2px solid white;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+  background: white;
+  color: #667eea;
+}
+
+/* Messages */
+.message {
+  padding: 15px;
+  border-radius: 8px;
+  margin: 15px 0;
+  font-weight: 600;
+  text-align: center;
+}
+
+.message.success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.message.error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.message.info {
+  background: #d1ecf1;
+  color: #0c5460;
+  border: 1px solid #bee5eb;
+}
+
+/* Booking Confirmation */
+.booking-confirmation {
+  background: linear-gradient(135deg, #d4edda, #c3e6cb);
+  padding: 30px;
+  border-radius: 15px;
+  margin: 20px 0;
+  text-align: center;
+}
+
+.booking-confirmation h3 {
+  color: #155724;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+}
+
+.confirmation-details {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px 0;
+  text-align: left;
+}
+
+.confirmation-details p {
+  margin: 10px 0;
+  color: #333;
+}
+
+.confirmation-note {
+  color: #155724;
+  font-style: italic;
+  margin: 20px 0;
+}
+
+.book-another-btn {
+  padding: 15px 30px;
+  background: linear-gradient(45deg, #ff9f0d, #ff6b35);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.book-another-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    margin: 10px;
+    border-radius: 10px;
   }
   
   h1 {
+    font-size: 2rem;
+    padding: 20px;
+  }
+  
+  .auth-section,
+  .chef-section,
+  .booking-section {
+    padding: 20px;
+  }
+  
+  .chefs-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .user-info {
+    flex-direction: column;
+    gap: 15px;
     text-align: center;
   }
-  
-  form {
-    max-width: 400px;
-    margin: 20px auto;
-  }
-  
-  label {
-    font-weight: bold;
-  }
-  
-  input[type="text"],
-  input[type="email"],
-  input[type="date"],
-  textarea {
-    width: 100%;
-    margin-bottom: 10px;
-    padding: 8px;
-    box-sizing: border-box;
-  }
-  
-  button {
-    background-color: #ff9f0d;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-  }
-  
-  button:hover {
-    background-color: #45a049;
-  }
-  
-  
+}

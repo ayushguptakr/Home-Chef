@@ -3,7 +3,7 @@ const { chefs, chefIdCounter } = require('../models/data');
 const Chef = require('../models/Chef');
 
 // Toggle between in-memory and MongoDB
-const USE_MONGODB = false;
+const USE_MONGODB = true;
 
 // ===========================================
 // GET ALL CHEFS
@@ -13,19 +13,14 @@ const getAllChefs = async (req, res) => {
     if (USE_MONGODB) {
       // MongoDB version
       const chefs = await Chef.find();
-      res.json({
-        message: 'Chefs retrieved successfully',
-        chefs
-      });
+      res.json(chefs);
     } else {
       // In-memory version
-      res.json({
-        message: 'Chefs retrieved successfully',
-        chefs
-      });
+      res.json(chefs);
     }
   } catch (error) {
-    res.status(500).json({ message: 'Server error' });
+    console.error('Get chefs error:', error);
+    res.status(500).json({ message: 'Server error: ' + error.message });
   }
 };
 

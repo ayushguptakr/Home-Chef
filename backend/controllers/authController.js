@@ -5,10 +5,10 @@ const jwt = require('jsonwebtoken');
 const { users, userIdCounter } = require('../models/data');
 const User = require('../models/User');
 
-const JWT_SECRET = 'homechef_secret_key';
+const JWT_SECRET = process.env.JWT_SECRET || 'homechef_secret_key';
 
-// Toggle between in-memory and MongoDB (set to false for in-memory)
-const USE_MONGODB = false;
+// Toggle between in-memory and MongoDB (set to false for in-memory if MongoDB not running)
+const USE_MONGODB = true;
 
 // ===========================================
 // REGISTER USER
@@ -16,6 +16,10 @@ const USE_MONGODB = false;
 const register = async (req, res) => {
   try {
     const { name, email, password } = req.body;
+
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: 'All fields are required' });
+    }
 
     if (USE_MONGODB) {
       // MongoDB version
@@ -58,7 +62,8 @@ const register = async (req, res) => {
       });
     }
   } catch (error) {
-    res.status(500).json({ message: 'Server error' });
+    console.error('Registration error:', error);
+    res.status(500).json({ message: 'Server error: ' + error.message });
   }
 };
 
@@ -68,6 +73,10 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ message: 'Email and password are required' });
+    }
 
     if (USE_MONGODB) {
       // MongoDB version
@@ -107,7 +116,8 @@ const login = async (req, res) => {
       });
     }
   } catch (error) {
-    res.status(500).json({ message: 'Server error' });
+    console.error('Login error:', error);
+    res.status(500).json({ message: 'Server error: ' + error.message });
   }
 };
 

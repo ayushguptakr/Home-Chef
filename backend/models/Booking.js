@@ -19,6 +19,18 @@ const bookingSchema = new mongoose.Schema({
   time: {
     type: String,
     required: true
+  },
+  cuisine: {
+    type: String,
+    default: ''
+  },
+  address: {
+    type: String,
+    required: true
+  },
+  specialRequests: {
+    type: String,
+    default: ''
   }
 }, {
   timestamps: true
