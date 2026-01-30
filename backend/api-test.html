@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomeChef - API Testing</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        button { background: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 3px; cursor: pointer; }
+        input, select { padding: 8px; margin: 5px; border: 1px solid #ddd; border-radius: 3px; }
+        .result { background: #f8f9fa; padding: 10px; margin: 10px 0; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <h1>🍳 HomeChef Backend API Testing</h1>
+    
+    <!-- User Registration -->
+    <div class="section">
+        <h3>👤 Register User</h3>
+        <input type="text" id="regName" placeholder="Name" value="John Doe">
+        <input type="email" id="regEmail" placeholder="Email" value="john@example.com">
+        <input type="password" id="regPassword" placeholder="Password" value="password123">
+        <button onclick="registerUser()">Register</button>
+        <div id="regResult" class="result"></div>
+    </div>
+
+    <!-- User Login -->
+    <div class="section">
+        <h3>🔐 Login User</h3>
+        <input type="email" id="loginEmail" placeholder="Email" value="john@example.com">
+        <input type="password" id="loginPassword" placeholder="Password" value="password123">
+        <button onclick="loginUser()">Login</button>
+        <div id="loginResult" class="result"></div>
+    </div>
+
+    <!-- Fetch Chefs -->
+    <div class="section">
+        <h3>👨‍🍳 Get All Chefs</h3>
+        <button onclick="fetchChefs()">Fetch Chefs</button>
+        <div id="chefsResult" class="result"></div>
+    </div>
+
+    <!-- Add Chef -->
+    <div class="section">
+        <h3>➕ Add New Chef</h3>
+        <input type="text" id="chefName" placeholder="Chef Name" value="Maria Garcia">
+        <input type="text" id="chefSpec" placeholder="Specialization" value="Spanish Cuisine">
+        <input type="number" id="chefExp" placeholder="Experience (years)" value="7">
+        <button onclick="addChef()">Add Chef</button>
+        <div id="addChefResult" class="result"></div>
+    </div>
+
+    <!-- Create Booking -->
+    <div class="section">
+        <h3>📅 Create Booking</h3>
+        <input type="number" id="bookUserId" placeholder="User ID" value="1">
+        <input type="number" id="bookChefId" placeholder="Chef ID" value="1">
+        <input type="date" id="bookDate" value="2024-01-20">
+        <input type="time" id="bookTime" value="18:00">
+        <button onclick="createBooking()">Book Chef</button>
+        <div id="bookingResult" class="result"></div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:5000/api';
+
+        // Register User
+        async function registerUser() {
+            const userData = {
+                name: document.getElementById('regName').value,
+                email: document.getElementById('regEmail').value,
+                password: document.getElementById('regPassword').value
+            };
+
+            try {
+                const response = await fetch(`${API_BASE}/users/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(userData)
+                });
+                
+                const data = await response.json();
+                document.getElementById('regResult').innerHTML = 
+                    `<strong>Status:</strong> ${response.status}<br>
+                     <strong>Response:</strong> ${JSON.stringify(data, null, 2)}`;
+                
+                if (data.token) {
+                    localStorage.setItem('token', data.token);
+                }
+            } catch (error) {
+                document.getElementById('regResult').innerHTML = `Error: ${error.message}`;
+            }
+        }
+
+        // Login User
+        async function loginUser() {
+            const credentials = {
+                email: document.getElementById('loginEmail').value,
+                password: document.getElementById('loginPassword').value
+            };
+
+            try {
+                const response = await fetch(`${API_BASE}/users/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(credentials)
+                });
+                
+                const data = await response.json();
+                document.getElementById('loginResult').innerHTML = 
+                    `<strong>Status:</strong> ${response.status}<br>
+                     <strong>Response:</strong> ${JSON.stringify(data, null, 2)}`;
+                
+                if (data.token) {
+                    localStorage.setItem('token', data.token);
+                }
+            } catch (error) {
+                document.getElementById('loginResult').innerHTML = `Error: ${error.message}`;
+            }
+        }
+
+        // Fetch Chefs
+        async function fetchChefs() {
+            try {
+                const response = await fetch(`${API_BASE}/chefs`);
+                const data = await response.json();
+                
+                document.getElementById('chefsResult').innerHTML = 
+                    `<strong>Status:</strong> ${response.status}<br>
+                     <strong>Chefs:</strong> ${JSON.stringify(data, null, 2)}`;
+            } catch (error) {
+                document.getElementById('chefsResult').innerHTML = `Error: ${error.message}`;
+            }
+        }
+
+        // Add Chef
+        async function addChef() {
+            const chefData = {
+                name: document.getElementById('chefName').value,
+                specialization: document.getElementById('chefSpec').value,
+                experience: parseInt(document.getElementById('chefExp').value)
+            };
+
+            try {
+                const response = await fetch(`${API_BASE}/chefs`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(chefData)
+                });
+                
+                const data = await response.json();
+                document.getElementById('addChefResult').innerHTML = 
+                    `<strong>Status:</strong> ${response.status}<br>
+                     <strong>Response:</strong> ${JSON.stringify(data, null, 2)}`;
+            } catch (error) {
+                document.getElementById('addChefResult').innerHTML = `Error: ${error.message}`;
+            }
+        }
+
+        // Create Booking
+        async function createBooking() {
+            const bookingData = {
+                userId: parseInt(document.getElementById('bookUserId').value),
+                chefId: parseInt(document.getElementById('bookChefId').value),
+                date: document.getElementById('bookDate').value,
+                time: document.getElementById('bookTime').value
+            };
+
+            try {
+                const response = await fetch(`${API_BASE}/bookings`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(bookingData)
+                });
+                
+                const data = await response.json();
+                document.getElementById('bookingResult').innerHTML = 
+                    `<strong>Status:</strong> ${response.status}<br>
+                     <strong>Response:</strong> ${JSON.stringify(data, null, 2)}`;
+            } catch (error) {
+                document.getElementById('bookingResult').innerHTML = `Error: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>
