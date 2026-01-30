@@ -148,6 +148,22 @@ h1 {
   cursor: pointer;
   transition: all 0.3s ease;
   border: 3px solid transparent;
+  text-align: center;
+}
+
+.chef-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 20px;
+  display: block;
+  border: 3px solid var(--main-color);
+  transition: transform 0.3s ease;
+}
+
+.chef-card:hover .chef-image {
+  transform: scale(1.05);
 }
 
 .chef-card:hover {
