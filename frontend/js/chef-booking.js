@@ -226,12 +226,20 @@ async function loadChefs() {
 // Chef image mapping
 function getChefImage(chefName) {
     const imageMap = {
-        'Sumit Kumar': 'img/x3.png',
+        'Sumit Kumar': 'img/x14.png',
         'Sunita Singh': 'img/x7.png', 
         'Soniya Bansal': 'img/x9.png',
-        'Alisha': 'img/x1.png'
+        'Priya Sharma': 'img/x8.png',
+        'David Thompson': 'img/x6.png',
+        'Marco Rodriguez': 'img/x2.png',
+        'Sarah Chen': 'img/x4.png',
+        'Alisha': 'img/x1.png',
+        'Kenji Tanaka': 'img/x10.png',
+        'Ahmed Hassan': 'img/x3.png',
+        'Sophie Laurent': 'img/x13.png',
+        'Maria Garcia': 'img/x5.png'
     };
-    return imageMap[chefName] || 'img/x3.png'; // Default image
+    return imageMap[chefName] || 'img/x12.png'; // Default image
 }
 
 // Display chefs
