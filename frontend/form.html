@@ -11,8 +11,25 @@
   <div class="container">
     <h1>🍳 Book a Professional Chef</h1>
     
-    <!-- User Registration/Login Section -->
-    <div id="authSection" class="auth-section">
+    <!-- User Info Section -->
+    <div id="userInfo" class="dashboard" style="display: none;">
+      <div class="user-info">
+        <h3>Welcome, <span id="userName"></span>!</h3>
+        <p>Select your preferred chef and complete your booking</p>
+      </div>
+    </div>
+
+    <!-- Login Required Message -->
+    <div id="loginRequired" class="auth-section" style="display: none;">
+      <div class="auth-form">
+        <h3>Login Required</h3>
+        <p>Please login to book a chef.</p><br>
+        <button onclick="showAuthForms()">Login / Sign Up</button>
+      </div>
+    </div>
+
+    <!-- Authentication Forms -->
+    <div id="authForms" class="auth-section" style="display: none;">
       <div class="auth-tabs">
         <button id="loginTab" class="tab-btn active" onclick="showLogin()">Login</button>
         <button id="registerTab" class="tab-btn" onclick="showRegister()">Register</button>
@@ -39,8 +56,8 @@
     </div>
 
     <!-- Chef Selection Section -->
-    <div id="chefSection" class="chef-section" style="display: none;">
-      <h2>👨‍🍳 Select Your Chef</h2>
+    <div id="chefSection" class="chef-section">
+      <h2>👨🍳 Select Your Chef</h2>
       <div id="chefsList" class="chefs-grid"></div>
     </div>
 
@@ -55,28 +72,36 @@
         </div>
         
         <div class="form-group">
-          <label for="bookingDate">Date:</label>
-          <input type="date" id="bookingDate" required>
+          <label for="contactNumber">Contact Number:</label>
+          <input type="tel" id="contactNumber" placeholder="+91 9876543210" required>
         </div>
         
-        <div class="form-group">
-          <label for="bookingTime">Time:</label>
-          <input type="time" id="bookingTime" required>
+        <div class="form-row">
+          <div class="form-group half-width">
+            <label for="bookingDate">Date:</label>
+            <input type="date" id="bookingDate" required>
+          </div>
+          
+          <div class="form-group half-width">
+            <label for="bookingTime">Time:</label>
+            <input type="time" id="bookingTime" required>
+          </div>
         </div>
         
         <div class="form-group">
           <label for="cuisine">Preferred Cuisine:</label>
           <input type="text" id="cuisine" placeholder="e.g., Italian, Indian, Chinese">
         </div>
+
         
         <div class="form-group">
-          <label for="address">Address:</label>
-          <textarea id="address" rows="3" placeholder="Your complete address" required></textarea>
+          <label for="address">Complete Address:</label>
+          <textarea id="address" rows="3" placeholder="House/Flat No., Street, Area, City, Pincode" required></textarea>
         </div>
         
         <div class="form-group">
-          <label for="specialRequests">Special Requests:</label>
-          <textarea id="specialRequests" rows="2" placeholder="Any dietary restrictions or special requests"></textarea>
+          <label for="specialRequests">Special Requests & Dietary Restrictions:</label>
+          <textarea id="specialRequests" rows="2" placeholder="Any allergies, dietary preferences, special occasions, etc."></textarea>
         </div>
         
         <button type="submit" class="book-btn">🍽️ Confirm Booking</button>
@@ -84,24 +109,9 @@
       
       <div id="bookingMessage" class="message"></div>
     </div>
-
-    <!-- User Dashboard -->
-    <div id="userDashboard" class="dashboard" style="display: none;">
-      <div class="user-info">
-        <h3>Welcome, <span id="userName"></span>!</h3>
-        <button onclick="logout()" class="logout-btn">Logout</button>
-      </div>
-    </div>
   </div>
 
   <script src="js/api.js"></script>
-  <script src="js/booking.js"></script>
-  <script>
-    // Test if scripts loaded
-    console.log('Scripts loading...');
-    console.log('HomeChefAPI available:', typeof HomeChefAPI);
-    console.log('handleLogin available:', typeof handleLogin);
-    console.log('showRegister available:', typeof showRegister);
-  </script>
+  <script src="js/chef-booking.js"></script>
 </body>
 </html>

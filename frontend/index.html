@@ -8,6 +8,7 @@
     <link rel="icon" href="img/link.png" type="image/x-icon">
 
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/auth-modal.css">
 
     <!--box icons-->
     <link rel="stylesheet"
@@ -34,8 +35,7 @@
         </ul>
 
         <div class="nav-icons">
-            <a href="#"><i class='bx bx-search' ></i></a>
-            <!-- <a href="#"><i class='bx bxs-pizza'></i></a> -->
+            <a href="#" onclick="authSystem.openModal()"><i class='bx bx-user'></i></a>
             <div class="bx bx-menu" id="menu-icon"></div>
         </div>
     </header>
@@ -111,7 +111,7 @@
                     </div>
                 <!--</div>-->
                 <div class="s-btnn">
-                    <a href="form.html" target="_blank">Choose</a>
+                    <a href="form.html?chef=Sumit Kumar" target="_blank">Choose</a>
                 </div>
             </div>
 
@@ -130,7 +130,7 @@
                     </div>
                 <!--</div>-->
                 <div class="s-btnn">
-                    <a href="form.html" target="_blank">Choose</a>
+                    <a href="form.html?chef=Sunita Singh" target="_blank">Choose</a>
                 </div>
             </div>
 
@@ -149,7 +149,7 @@
                     </div>
                 <!--</div>-->
                 <div class="s-btnn">
-                    <a href="form.html" target="_blank">Choose</a>
+                    <a href="form.html?chef=Soniya Bansal" target="_blank">Choose</a>
                 </div>
             </div>
 
@@ -168,7 +168,7 @@
                     </div>
                 <!--</div>-->
                 <div class="s-btnn">
-                    <a href="form.html" target="_blank">Choose</a>
+                    <a href="form.html?chef=Alisha" target="_blank">Choose</a>
                 </div>
             </div>
 
@@ -179,7 +179,7 @@
         </div>
 
         <div class="row-btn">
-            <a href="#" class="btn">All Cooks<i class="bx bxs-right-arrow" ></i></a>
+            <a href="form.html" target="_blank" class="btn">All Cooks<i class="bx bxs-right-arrow" ></i></a>
 
         </div>
     </section>
@@ -322,6 +322,7 @@
 
     <!--link to js-->
     <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
     <script src="js/script.js"></script>
     
 </body>
