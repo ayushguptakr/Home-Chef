@@ -223,6 +223,17 @@ async function loadChefs() {
     }
 }
 
+// Chef image mapping
+function getChefImage(chefName) {
+    const imageMap = {
+        'Sumit Kumar': 'img/x3.png',
+        'Sunita Singh': 'img/x7.png', 
+        'Soniya Bansal': 'img/x9.png',
+        'Alisha': 'img/x1.png'
+    };
+    return imageMap[chefName] || 'img/x3.png'; // Default image
+}
+
 // Display chefs
 function displayChefs(chefs) {
     const chefsList = document.getElementById('chefsList');
@@ -234,6 +245,7 @@ function displayChefs(chefs) {
     
     chefsList.innerHTML = chefs.map(chef => `
         <div class="chef-card" onclick="selectChef('${chef._id || chef.id}', '${chef.name}', '${chef.specialization}')">
+            <img src="${getChefImage(chef.name)}" alt="${chef.name}" class="chef-image">
             <div class="chef-info">
                 <h3>${chef.name}</h3>
                 <p><strong>Specialization:</strong> ${chef.specialization}</p>
